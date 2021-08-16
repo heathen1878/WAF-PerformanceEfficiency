@@ -14,8 +14,11 @@ Scaling up and down
 # Get a list of VMs and select the one to work with
 $vm = Get-AzVM | Out-GridView -Title 'Select the VM to resize' -PassThru
 
-# Get a list of available VM sizes on the current cluster - you must make sure the new size supports all the existing features e.g. premium disks...
-$newSize = Get-AzVMSize -ResourceGroupName $vm.ResourceGroupName -VMName $vm.Name | Select-Object Name | Out-GridView -Title 'Select the new VM Sku' -Passthru
+# Get a list of available VM sizes on the current cluster
+# NOTE you must make sure the new size supports all the existing features e.g. premium disks...
+$newSize = Get-AzVMSize `
+-ResourceGroupName $vm.ResourceGroupName `
+-VMName $vm.Name | Select-Object Name | Out-GridView -Title 'Select the new VM Sku' -Passthru
 
 # Update the VM
 $vm.HardwareProfile.VmSize = $newSize.Name
@@ -26,3 +29,12 @@ Update-AzVM -VM $vm -ResourceGroupName $vm.ResourceGroupName
 ```
 
 Learn more [here](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/resize-vm)
+
+Scaling out and scaling in
+
+```powershell
+
+
+```
+
+Learn more [here](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview?context=/azure/virtual-machines/context/context)
